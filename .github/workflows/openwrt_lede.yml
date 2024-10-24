@@ -90,10 +90,7 @@ jobs:
         echo "VER=$VER" >> $GITHUB_ENV
 
     - name: Update feeds
-      run: |
-       cd openwrt 
-       sed -i ':a;N;$!ba;s/\/luci/\/luci.git;openwrt-23.05/g' feeds.conf.default
-       ./scripts/feeds update -a && ./scripts/feeds install -a
+      run:  cd openwrt && ./scripts/feeds update -a && ./scripts/feeds install -a
 
     - name: File Diy Patch
       run: |
@@ -235,6 +232,7 @@ jobs:
         CONFIG_PACKAGE_luci-app-socat=y
         CONFIG_PACKAGE_luci-app-samba4=y
         CONFIG_PACKAGE_luci-app-ttyd=y
+        CONFIG_PACKAGE_luci-app-turboacc=y
         CONFIG_PACKAGE_luci-app-wol=y
         CONFIG_PACKAGE_luci-app-wrtbwmon=y
         CONFIG_PACKAGE_luci-app-ramfree=y
@@ -314,30 +312,6 @@ jobs:
         CONFIG_PACKAGE_losetup=y
         CONFIG_PACKAGE_tar=y
         CONFIG_PACKAGE_uuidgen=y
-        EOF
-
-        # 无线驱动
-        cat >> .config <<EOF
-        CONFIG_PACKAGE_kmod-ath=y
-        CONFIG_ATH_USER_REGD=y
-        CONFIG_PACKAGE_ATH_DFS=y
-        CONFIG_PACKAGE_kmod-ath6kl=y
-        CONFIG_PACKAGE_kmod-ath6kl-usb=y
-        CONFIG_PACKAGE_kmod-brcmfmac=y
-        CONFIG_BRCMFMAC_SDIO=y
-        CONFIG_PACKAGE_kmod-brcmutil=y
-        CONFIG_PACKAGE_kmod-carl9170=y
-        CONFIG_PACKAGE_kmod-cfg80211=y
-        CONFIG_PACKAGE_kmod-mac80211=y
-        CONFIG_PACKAGE_MAC80211_MESH=y
-        CONFIG_PACKAGE_kmod-mt7601u=y
-        CONFIG_PACKAGE_kmod-rsi91x=y
-        CONFIG_PACKAGE_kmod-rsi91x-usb=y
-        CONFIG_PACKAGE_kmod-rtl8192c-common=y
-        CONFIG_PACKAGE_kmod-rtl8192cu=y
-        CONFIG_PACKAGE_kmod-rtl8723bs=y
-        CONFIG_PACKAGE_kmod-rtlwifi=y
-        CONFIG_PACKAGE_kmod-rtlwifi-usb=y
         EOF
 
         # 可选软件包
